@@ -4,14 +4,11 @@
 
 ## 構成
 
-- `.github/workflows/deploy.yml` - GitHub Pages などへの自動デプロイ設定
+- `.github/workflows/deploy.yml` - GitHub Pages への自動デプロイ設定
 - `src/index.html` - メインの HTML
-- `src/css/main.css` - サイト全体のベーススタイル
-- `src/css/components.css` - タブ・タイムライン・チェックリストのスタイル
-- `src/css/responsive.css` - スマホ対応レイアウト
-- `src/js/main.js` - アプリのエントリーポイント
-- `src/js/tabs.js` - タブ切り替えロジック
-- `src/js/checklist.js` - チェックリストの保存機能
+- `src/css/style.css` - サイトのスタイル
+- `src/js/app.js` - アプリのエントリーポイント
+- `src/assets/` - アイコン・画像
 
 ## ローカル実行
 
@@ -20,17 +17,28 @@ npm install
 npm run dev
 ```
 
+ブラウザで `http://localhost:5173` を開いてください。
+
 ## ビルド
 
 ```bash
 npm run build
 ```
-# 🎋 宮城・岩手 2泊3日 夏旅しおり (2026)
 
-このリポジトリは、2026年8月8日〜10日の旅行用Webしおりのソースコードです。
+ビルド成果物は `dist/` に出力されます。
+
+## GitHub Pages
+
+`main` または `master` ブランチへプッシュすると、自動的にビルド＆公開されます。公開先は GitHub リポジトリの `Settings > Pages` で確認してください。
+
+`publish_dir` は `./dist` です。
 
 ## 🚀 開発の始め方
 
 1. リポジトリをクローン
    ```bash
-   git clone [https://github.com/](https://github.com/)[あなたのユーザー名]/travel-shiori-2026.git
+   git clone https://github.com/<ユーザー名>/travel-shiori-2026.git
+   cd travel-shiori-2026
+   npm install
+   npm run dev
+   ```
