@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/travel-shiori-2026/',
+  base: './',
   root: 'src',
   build: {
     outDir: '../dist',
