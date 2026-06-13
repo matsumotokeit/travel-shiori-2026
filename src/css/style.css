@@ -164,3 +164,162 @@ header p {
     color: #6c757d;
 }
 
+.share-section {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 24px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.share-section h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+.share-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    color: #fff;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.share-btn:active {
+    transform: translateY(0);
+}
+
+.copy-btn {
+    background: #2a5298;
+}
+
+.copy-btn:hover {
+    background: #1e3c72;
+}
+
+.line-btn {
+    background: #06c755;
+}
+
+.line-btn:hover {
+    background: #05a84a;
+}
+
+.x-btn {
+    background: #1a1a1a;
+}
+
+.x-btn:hover {
+    background: #333;
+}
+
+.email-btn {
+    background: #6c757d;
+}
+
+.email-btn:hover {
+    background: #5a6268;
+}
+
+.qr-area {
+    border-top: 1px solid #e9ecef;
+    padding-top: 16px;
+}
+
+.qr-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.88rem;
+    color: #2a5298;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.2s;
+}
+
+.qr-toggle:hover {
+    opacity: 0.7;
+}
+
+.qr-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 16px;
+    animation: fadeIn 0.3s ease;
+}
+
+.qr-container.visible {
+    display: flex;
+}
+
+#qr-canvas {
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+}
+
+.qr-hint {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.copy-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #2a5298;
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.copy-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+    .share-buttons {
+        flex-direction: column;
+    }
+    .share-btn {
+        justify-content: center;
+    }
+}
+

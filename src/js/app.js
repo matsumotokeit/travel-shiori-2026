@@ -15,10 +15,6 @@ function switchTab(dayId) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-window.addEventListener('load', () => {
-    initRouteMap();
-});
-
 function initRouteMap() {
     const mapContainer = document.getElementById('route-map');
     if (!mapContainer || typeof L === 'undefined') {
@@ -61,4 +57,111 @@ function initRouteMap() {
     map.fitBounds(polyline.getBounds(), { padding: [20, 20] });
     setTimeout(() => map.invalidateSize(), 200);
 }
+
+// 共有機能
+function getShareUrl() {
+    return window.location.href;
+}
+
+function getShareText() {
+    return '宮城・岩手 2泊3日 夏旅しおり 2026年8月8日〜10日';
+}
+
+function copyUrl() {
+    navigator.clipboard.writeText(getShareUrl()).then(() => {
+        const toast = document.getElementById('copy-toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+    }).catch(() => {
+        const input = document.createElement('input');
+        input.value = getShareUrl();
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        const toast = document.getElementById('copy-toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+    });
+}
+
+function initShareLinks() {
+    const url = encodeURIComponent(getShareUrl());
+    const text = encodeURIComponent(getShareText());
+
+    const lineBtn = document.getElementById('line-share');
+    if (lineBtn) lineBtn.href = `https://social-plugins.line.me/lineit/share?url=${url}&text=${text}`;
+
+    const xBtn = document.getElementById('x-share');
+    if (xBtn) xBtn.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+
+    const emailBtn = document.getElementById('email-share');
+    if (emailBtn) emailBtn.href = `mailto:?subject=${text}&body=${url}`;
+}
+
+function toggleQR() {
+    const container = document.getElementById('qr-container');
+    const isVisible = container.classList.contains('visible');
+    if (isVisible) {
+        container.classList.remove('visible');
+        return;
+    }
+    container.classList.add('visible');
+    generateQR();
+}
+
+function generateQR() {
+    const canvas = document.getElementById('qr-canvas');
+    const url = getShareUrl();
+    const size = 200;
+    const modules = qrEncode(url);
+    const cellSize = size / modules.length;
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, size, size);
+    ctx.fillStyle = '#2a5298';
+    for (let row = 0; row < modules.length; row++) {
+        for (let col = 0; col < modules[row].length; col++) {
+            if (modules[row][col]) {
+                ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+            }
+        }
+    }
+}
+
+// Minimal QR code encoder (version 4, L correction, byte mode)
+function qrEncode(data) {
+    const qr = new QRCode(4, 'L');
+    qr.addData(data);
+    qr.make();
+    const count = qr.getModuleCount();
+    const modules = [];
+    for (let r = 0; r < count; r++) {
+        modules[r] = [];
+        for (let c = 0; c < count; c++) {
+            modules[r][c] = qr.isDark(r, c);
+        }
+    }
+    return modules;
+}
+
+// Load QR code library dynamically
+function loadQRLibrary() {
+    return new Promise((resolve, reject) => {
+        if (window.QRCode) { resolve(); return; }
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/qrcode-generator@1.4.4/qrcode.min.js';
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+window.addEventListener('load', () => {
+    initRouteMap();
+    initShareLinks();
+    loadQRLibrary();
+});
 
