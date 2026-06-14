@@ -8,9 +8,9 @@ function switchTab(dayId) {
     });
 
     document.getElementById(dayId).classList.add('active');
-    if (window.event && window.event.currentTarget) {
-        window.event.currentTarget.classList.add('active');
-    }
+    const dayIndex = ['day1', 'day2', 'day3'].indexOf(dayId);
+    const btns = document.querySelectorAll('.tab-btn');
+    if (dayIndex >= 0 && btns[dayIndex]) btns[dayIndex].classList.add('active');
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -158,6 +158,10 @@ function loadQRLibrary() {
         document.head.appendChild(script);
     });
 }
+
+window.switchTab = switchTab;
+window.copyUrl = copyUrl;
+window.toggleQR = toggleQR;
 
 window.addEventListener('load', () => {
     initRouteMap();
