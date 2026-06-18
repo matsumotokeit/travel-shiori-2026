@@ -1,167 +1,270 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>宮城・岩手 2泊3日 夏旅しおり</title>
-    <meta name="description" content="2026年8月8日〜10日、宮城・岩手を巡る2泊3日の夏旅しおり。仙台牛タン、七夕まつり、三陸海岸、わんこそば、中尊寺など盛りだくさん！">
-    <meta property="og:title" content="宮城・岩手 2泊3日 夏旅しおり">
-    <meta property="og:description" content="2026年8月8日〜10日、宮城・岩手を巡る2泊3日の夏旅しおり。仙台牛タン、七夕まつり、三陸海岸、わんこそば、中尊寺など盛りだくさん！">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://images.pexels.com/photos/3154559/pexels-photo-3154559.jpeg?auto=compress&cs=tinysrgb&w=1200">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="宮城・岩手 2泊3日 夏旅しおり">
-    <meta name="twitter:description" content="2026年8月8日〜10日、宮城・岩手を巡る2泊3日の夏旅しおり">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宮城・岩手 2泊3日 夏旅しおり</title>
+  <meta name="description" content="2026年8月8日〜10日、宮城・岩手を巡る2泊3日の夏旅しおり。仙台牛タン、七夕まつり、三陸海岸、わんこそば、中尊寺など盛りだくさん！">
+  <meta property="og:title" content="宮城・岩手 2泊3日 夏旅しおり">
+  <meta property="og:description" content="2026年8月8日〜10日、宮城・岩手を巡る2泊3日の夏旅しおり。仙台牛タン、七夕まつり、三陸海岸、わんこそば、中尊寺など盛りだくさん！">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://images.pexels.com/photos/3154559/pexels-photo-3154559.jpeg?auto=compress&cs=tinysrgb&w=1200">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="宮城・岩手 2泊3日 夏旅しおり">
+  <meta name="twitter:description" content="2026年8月8日〜10日、宮城・岩手を巡る2泊3日の夏旅しおり">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <header>
-        <h1>🎋 宮城・岩手 2泊3日 夏旅しおり</h1>
-        <p>2026年8月8日(土) 〜 8月10日(月・祝)</p>
-    </header>
+  <header class="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        TRAVEL PLAN 2026
+      </div>
+      <h1>宮城・岩手<br>2泊3日 夏旅しおり</h1>
+      <p>2026年8月8日(土) 〜 8月10日(月・祝)</p>
+    </div>
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,80 1440,60 L1440,120 L0,120 Z" fill="#faf6f2"/>
+      </svg>
+    </div>
+  </header>
 
-    <div class="container">
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('day1')">DAY 1<br><span style="font-size:11px;">8/8(土)</span></button>
-            <button class="tab-btn" onclick="switchTab('day2')">DAY 2<br><span style="font-size:11px;">8/9(日)</span></button>
-            <button class="tab-btn" onclick="switchTab('day3')">DAY 3<br><span style="font-size:11px;">8/10(月)</span></button>
+  <div class="tabs-sticky" id="tabs-sticky">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('day1')">
+        DAY 1
+        <span class="tab-label">8/8(土)</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('day2')">
+        DAY 2
+        <span class="tab-label">8/9(日)</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('day3')">
+        DAY 3
+        <span class="tab-label">8/10(月)</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <section class="map-section">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        移動ルートマップ
+      </h2>
+      <div id="route-map"></div>
+      <p class="map-note">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+        仙台・多賀城・三陸・盛岡・花巻・平泉を結ぶ今回の旅ルート
+      </p>
+    </section>
+
+    <div id="day1" class="tab-content active">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            11:00 〜 12:00
+          </div>
+          <div class="timeline-title">仙台駅集合 🚗</div>
+          <div class="timeline-details">順次合流 / レンタカー受取 / 荷物積み込み / 車割り決定</div>
         </div>
-
-        <section class="map-section">
-            <h2>移動ルートマップ</h2>
-            <div id="route-map"></div>
-            <p class="map-note">仙台・多賀城・三陸・盛岡・花巻・平泉を結ぶ今回の旅ルートを表示しています。</p>
-        </section>
-
-        <div id="day1" class="tab-content active">
-            <div class="timeline-item">
-                <span class="time">11:00 〜 12:00</span>
-                <div class="title">仙台駅集合 🚗</div>
-                <div class="details">順次合流 / レンタカー受取 / 荷物積み込み / 車割り決定</div>
-            </div>
-            <div class="timeline-item">
-                <span class="time">12:00 〜 13:30</span>
-                <div class="title">昼食：仙台牛タン 👅</div>
-                <div class="details">本場の厚切り炭火焼き牛タンを堪能！</div>
-            </div>
-            <div class="timeline-item">
-                <span class="time">14:00 〜 15:30</span>
-                <div class="title">瑞鳳殿 観光 ⛩️</div>
-                <div class="details">伊達政宗公が眠る豪華絢爛な霊屋。杉木立の中で写真撮影！</div>
-                <img class="spot-img" src="https://images.pexels.com/photos/5874648/pexels-photo-5874648.jpeg?auto=compress&cs=tinysrgb&w=800" alt="瑞鳳殿の実際の写真">
-            </div>
-            <div class="timeline-item">
-                <span class="time">15:30 〜 16:30</span>
-                <div class="title">仙台市内移動・カフェ休憩 ☕️</div>
-                <div class="details">カフェでひと息 / お土産の事前チェック</div>
-            </div>
-            <div class="timeline-item">
-                <span class="time">17:00 〜 21:00</span>
-                <div class="title">仙台七夕まつり 🌌</div>
-                <div class="details">お祭り本番！豪華な七夕飾り鑑賞、屋台での食べ歩きと写真撮影を全力で楽しむ。</div>
-                <img class="spot-img" src="https://images.pexels.com/photos/2193300/pexels-photo-2193300.jpeg?auto=compress&cs=tinysrgb&w=800" alt="仙台七夕まつりの実際の写真">
-            </div>
-            <div class="timeline-item">
-                <span class="time">21:00 〜</span>
-                <div class="title">1日目宿泊：Airbnb チェックイン 🏡</div>
-                <div class="details">宿の住所：宮城県多賀城市笠神1丁目9-20<br>
-                <a href="https://www.airbnb.jp/rooms/971415598908303609?adults=10&check_in=2026-08-08&check_out=2026-08-09&location=Matsushima%2C%20Miyagi%20District%2C%20Japan&search_mode=regular_search&source_impression_id=p3_1779542353_P3p6xUGqT-e-X-W8&previous_page_section_name=1001" target="_blank" rel="noopener">Airbnb 宿泊ページ</a><br>
-                チェックイン後、買い出しをして部屋飲み＆自由時間！</div>
-            </div>
+        <div class="timeline-item">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            12:00 〜 13:30
+          </div>
+          <div class="timeline-title">昼食：仙台牛タン 👅</div>
+          <div class="timeline-details">本場の厚切り炭火焼き牛タンを堪能！</div>
         </div>
-
-        <div id="day2" class="tab-content">
-            <div class="timeline-item">
-                <span class="time">09:00 〜</span>
-                <div class="title">宿出発 → 三陸ドライブ 🌊</div>
-                <div class="details">南三陸方面へ。途中の道の駅や展望スポットで海をバックに写真撮影。</div>
-                <img class="spot-img" src="assets/images/sanriku.jpg" alt="三陸海岸の実際の写真">
-            </div>
-            <div class="timeline-item">
-                <span class="time">11:00 〜 13:00</span>
-                <div class="title">気仙沼周辺：海の幸ランチ 🐟</div>
-                <div class="details">【候補】海鮮丼 / 寿司 / 刺身定食。新鮮な三陸の海の幸！</div>
-            </div>
-            <div class="timeline-item">
-                <span class="time">13:00 〜 16:00</span>
-                <div class="title">三陸海岸 北上ドライブ 🚗💨</div>
-                <div class="details">海沿い散歩 / 道の駅巡り / ご当地ソフトクリームやグルメハント</div>
-            </div>
-            <div class="timeline-item">
-                <span class="time">17:00 〜 18:30</span>
-                <div class="title">わんこそば挑戦！＠東家本店 🥢</div>
-                <div class="details">盛岡の名店でわんこそば対決！みんなで何杯いけるか限界突破。</div>
-            </div>
-            <div class="timeline-item">
-                <span class="time">19:30 〜</span>
-                <div class="title">花巻温泉チェックイン ♨️</div>
-                <div class="details">名湯でドライブの疲れを癒やす / 夕食・自由時間<br>
-                宿はこちら：<a href="http://www.takashige.net/top.php" target="_blank" rel="noopener">花巻高繁旅館</a></div>
-            </div>
+        <div class="timeline-item has-image">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            14:00 〜 15:30
+          </div>
+          <div class="timeline-title">瑞鳳殿 観光 ⛩️</div>
+          <div class="timeline-details">伊達政宗公が眠る豪華絢爛な霊屋。杉木立の中で写真撮影！</div>
+          <div class="spot-img-container">
+            <img class="spot-img" src="https://images.pexels.com/photos/5874648/pexels-photo-5874648.jpeg?auto=compress&cs=tinysrgb&w=800" alt="瑞鳳殿の実際の写真">
+            <span class="spot-img-label">瑞鳳殿</span>
+          </div>
         </div>
-
-        <div id="day3" class="tab-content">
-            <div class="timeline-item">
-                <span class="time">09:30 〜 11:30</span>
-                <div class="title">世界遺産 中尊寺・金色堂 🏯</div>
-                <div class="details">平泉の歴史に触れる。新緑の杉並木を散策、お土産購入。</div>
-                <img class="spot-img" src="assets/images/chusonji.jpg" alt="中尊寺本堂の実際の写真">
-            </div>
-            <div class="timeline-item">
-                <span class="time">11:30 〜 12:30</span>
-                <div class="title">平泉周辺ランチ 🥩</div>
-                <div class="details">【候補】前沢牛ステーキ・すき焼き / 郷土もち料理 / 定食</div>
-            </div>
-            <div class="timeline-item">
-                <span class="time">12:30 〜 15:00</span>
-                <div class="title">仙台方面へ移動（復路）</div>
-                <div class="details">SAで休憩・最後のお土産チェック / 車内で写真の整理・共有</div>
-            </div>
-            <div class="timeline-item">
-                <span class="time">15:00 〜 16:00</span>
-                <div class="title">仙台駅到着・解散 🏁</div>
-                <div class="details">レンタカー返却 / 16:00頃、思い出を胸に解散！お疲れ様でした！</div>
-            </div>
+        <div class="timeline-item">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            15:30 〜 16:30
+          </div>
+          <div class="timeline-title">仙台市内移動・カフェ休憩 ☕️</div>
+          <div class="timeline-details">カフェでひと息 / お土産の事前チェック</div>
         </div>
-
-        <section class="share-section">
-            <h2>このしおりを共有する</h2>
-            <div class="share-buttons">
-                <button class="share-btn copy-btn" onclick="copyUrl()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                    <span>URLをコピー</span>
-                </button>
-                <a class="share-btn line-btn" id="line-share" href="#" target="_blank" rel="noopener">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.81 2 10.5c0 3.07 2.14 5.75 5.33 7.17l-1.08 3.64c-.1.32.26.58.54.4l4.17-2.76c.67.09 1.36.14 2.04.14 5.52 0 10-3.81 10-8.5S17.52 2 12 2z"/></svg>
-                    <span>LINE</span>
-                </a>
-                <a class="share-btn x-btn" id="x-share" href="#" target="_blank" rel="noopener">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    <span>X</span>
-                </a>
-                <a class="share-btn email-btn" id="email-share" href="#" target="_blank" rel="noopener">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                    <span>メール</span>
-                </a>
-            </div>
-            <div class="qr-area">
-                <div class="qr-toggle" onclick="toggleQR()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/><rect x="18" y="14" width="3" height="3"/><rect x="14" y="18" width="3" height="3"/></svg>
-                    <span>QRコードを表示</span>
-                </div>
-                <div class="qr-container" id="qr-container">
-                    <canvas id="qr-canvas"></canvas>
-                    <p class="qr-hint">スマホで読み取って共有</p>
-                </div>
-            </div>
-            <div class="copy-toast" id="copy-toast">コピーしました！</div>
-        </section>
-
+        <div class="timeline-item has-image">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            17:00 〜 21:00
+          </div>
+          <div class="timeline-title">仙台七夕まつり 🌌</div>
+          <div class="timeline-details">お祭り本番！豪華な七夕飾り鑑賞、屋台での食べ歩きと写真撮影を全力で楽しむ。</div>
+          <div class="spot-img-container">
+            <img class="spot-img" src="https://images.pexels.com/photos/2193300/pexels-photo-2193300.jpeg?auto=compress&cs=tinysrgb&w=800" alt="仙台七夕まつりの実際の写真">
+            <span class="spot-img-label">七夕まつり</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            21:00 〜
+          </div>
+          <div class="timeline-title">1日目宿泊：Airbnb チェックイン 🏡</div>
+          <div class="timeline-details">
+            宿の住所：宮城県多賀城市笠神1丁目9-20<br>
+            <a href="https://www.airbnb.jp/rooms/971415598908303609?adults=10&check_in=2026-08-08&check_out=2026-08-09&location=Matsushima%2C%20Miyagi%20District%2C%20Japan&search_mode=regular_search&source_impression_id=p3_1779542353_P3p6xUGqT-e-X-W8&previous_page_section_name=1001" target="_blank" rel="noopener">Airbnb 宿泊ページ</a><br>
+            チェックイン後、買い出しをして部屋飲み＆自由時間！
+          </div>
+        </div>
+      </div>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script type="module" src="js/app.js"></script>
+    <div id="day2" class="tab-content">
+      <div class="timeline">
+        <div class="timeline-item has-image">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            09:00 〜
+          </div>
+          <div class="timeline-title">宿出発 → 三陸ドライブ 🌊</div>
+          <div class="timeline-details">南三陸方面へ。途中の道の駅や展望スポットで海をバックに写真撮影。</div>
+          <div class="spot-img-container">
+            <img class="spot-img" src="assets/images/sanriku.jpg" alt="三陸海岸の実際の写真">
+            <span class="spot-img-label">三陸海岸</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            11:00 〜 13:00
+          </div>
+          <div class="timeline-title">気仙沼周辺：海の幸ランチ 🐟</div>
+          <div class="timeline-details">【候補】海鮮丼 / 寿司 / 刺身定食。新鮮な三陸の海の幸！</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            13:00 〜 16:00
+          </div>
+          <div class="timeline-title">三陸海岸 北上ドライブ 🚗💨</div>
+          <div class="timeline-details">海沿い散歩 / 道の駅巡り / ご当地ソフトクリームやグルメハント</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            17:00 〜 18:30
+          </div>
+          <div class="timeline-title">わんこそば挑戦！＠東家本店 🥢</div>
+          <div class="timeline-details">盛岡の名店でわんこそば対決！みんなで何杯いけるか限界突破。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            19:30 〜
+          </div>
+          <div class="timeline-title">花巻温泉チェックイン ♨️</div>
+          <div class="timeline-details">
+            名湯でドライブの疲れを癒やす / 夕食・自由時間<br>
+            宿はこちら：<a href="http://www.takashige.net/top.php" target="_blank" rel="noopener">花巻高繁旅館</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="day3" class="tab-content">
+      <div class="timeline">
+        <div class="timeline-item has-image">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            09:30 〜 11:30
+          </div>
+          <div class="timeline-title">世界遺産 中尊寺・金色堂 🏯</div>
+          <div class="timeline-details">平泉の歴史に触れる。新緑の杉並木を散策、お土産購入。</div>
+          <div class="spot-img-container">
+            <img class="spot-img" src="assets/images/chusonji.jpg" alt="中尊寺本堂の実際の写真">
+            <span class="spot-img-label">中尊寺</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            11:30 〜 12:30
+          </div>
+          <div class="timeline-title">平泉周辺ランチ 🥩</div>
+          <div class="timeline-details">【候補】前沢牛ステーキ・すき焼き / 郷土もち料理 / 定食</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            12:30 〜 15:00
+          </div>
+          <div class="timeline-title">仙台方面へ移動（復路）</div>
+          <div class="timeline-details">SAで休憩・最後のお土産チェック / 車内で写真の整理・共有</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            15:00 〜 16:00
+          </div>
+          <div class="timeline-title">仙台駅到着・解散 🏁</div>
+          <div class="timeline-details">レンタカー返却 / 16:00頃、思い出を胸に解散！お疲れ様でした！</div>
+        </div>
+      </div>
+    </div>
+
+    <section class="share-section">
+      <h2>このしおりを共有する</h2>
+      <div class="share-buttons">
+        <button class="share-btn copy-btn" onclick="copyUrl()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span>URLをコピー</span>
+        </button>
+        <a class="share-btn line-btn" id="line-share" href="#" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.81 2 10.5c0 3.07 2.14 5.75 5.33 7.17l-1.08 3.64c-.1.32.26.58.54.4l4.17-2.76c.67.09 1.36.14 2.04.14 5.52 0 10-3.81 10-8.5S17.52 2 12 2z"/></svg>
+          <span>LINE</span>
+        </a>
+        <a class="share-btn x-btn" id="x-share" href="#" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span>X</span>
+        </a>
+        <a class="share-btn email-btn" id="email-share" href="#" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <span>メール</span>
+        </a>
+      </div>
+      <div class="qr-area">
+        <div class="qr-toggle" onclick="toggleQR()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/><rect x="18" y="14" width="3" height="3"/><rect x="14" y="18" width="3" height="3"/></svg>
+          <span>QRコードを表示</span>
+        </div>
+        <div class="qr-container" id="qr-container">
+          <canvas id="qr-canvas"></canvas>
+          <p class="qr-hint">スマホで読み取って共有</p>
+        </div>
+      </div>
+      <div class="copy-toast" id="copy-toast">コピーしました！</div>
+    </section>
+
+    <footer class="footer">
+      <span class="footer-dot"></span>
+      宮城・岩手 2泊3日 夏旅しおり 2026
+      <span class="footer-dot"></span>
+    </footer>
+
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

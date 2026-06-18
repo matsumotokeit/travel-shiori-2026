@@ -163,9 +163,42 @@ window.switchTab = switchTab;
 window.copyUrl = copyUrl;
 window.toggleQR = toggleQR;
 
+// Scroll animations
+function initScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.timeline-item').forEach((el, i) => {
+        el.style.transitionDelay = `${i * 0.06}s`;
+        observer.observe(el);
+    });
+
+    document.querySelectorAll('.map-section, .share-section').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// Sticky tab shadow
+function initStickyTabs() {
+    const sticky = document.getElementById('tabs-sticky');
+    if (!sticky) return;
+    const onScroll = () => {
+        sticky.classList.toggle('shadow', sticky.getBoundingClientRect().top <= 0);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+}
+
 window.addEventListener('load', () => {
     initRouteMap();
     initShareLinks();
     loadQRLibrary();
+    initScrollAnimations();
+    initStickyTabs();
 });
 
