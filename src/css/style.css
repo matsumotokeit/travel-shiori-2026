@@ -340,8 +340,9 @@ body {
 /* === Spot Images === */
 .spot-img {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
+  object-position: center 20%;
   border-radius: var(--radius-md);
   margin-top: 14px;
   box-shadow: var(--shadow-sm);
