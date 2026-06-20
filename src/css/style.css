@@ -340,13 +340,14 @@ body {
 /* === Spot Images === */
 .spot-img {
   width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  object-position: center 20%;
+  max-height: 220px;
+  object-fit: contain;
   border-radius: var(--radius-md);
   margin-top: 14px;
   box-shadow: var(--shadow-sm);
   transition: transform 0.5s ease, box-shadow 1s ease;
+  background: var(--warm-100);
+  display: block;
 }
 
 .timeline-item:hover .spot-img {
