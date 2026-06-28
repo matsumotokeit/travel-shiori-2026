@@ -28,30 +28,34 @@ function initRouteMap() {
     }).addTo(map);
 
     const routePoints = [
-        { name: '仙台駅', coords: [38.2605, 140.8810] },
-        { name: '瑞鳳殿', coords: [38.2535, 140.8920] },
-        { name: '多賀城Airbnb', coords: [38.3335, 140.9835] },
-        { name: '三陸海岸', coords: [38.7411, 141.5682] },
-        { name: '東家本店', coords: [39.7036, 141.1527] },
-        { name: '花巻温泉', coords: [39.3963, 141.1311] },
-        { name: '中尊寺', coords: [39.0088, 141.1253] },
-        { name: '仙台駅', coords: [38.2605, 140.8810] }
+        { name: '仙台駅', coords: [38.2605, 140.8810], day: '1' },
+        { name: '瑞鳳殿', coords: [38.2535, 140.8920], day: '1' },
+        { name: '多賀城Airbnb', coords: [38.3335, 140.9835], day: '1' },
+        { name: '三陸海岸', coords: [38.7411, 141.5682], day: '2' },
+        { name: '西行戻しの松公園', coords: [39.0288, 141.1350], day: '2' },
+        { name: '東家本店', coords: [39.7036, 141.1527], day: '2' },
+        { name: '花巻温泉', coords: [39.3963, 141.1311], day: '2' },
+        { name: '中尊寺', coords: [39.0088, 141.1253], day: '3' },
+        { name: '仙台駅', coords: [38.2605, 140.8810], day: '3' }
     ];
 
     const latlngs = routePoints.map(point => point.coords);
-    const polyline = L.polyline(latlngs, { color: '#2a5298', weight: 5, opacity: 0.8 }).addTo(map);
+    const polyline = L.polyline(latlngs, { color: '#e0694e', weight: 4, opacity: 0.7, dashArray: '5, 5' }).addTo(map);
 
     routePoints.forEach((point, index) => {
+        const dayColors = { '1': '#4a6fa5', '2': '#f08060', '3': '#6ba3d4' };
+        const bgColor = dayColors[point.day] || '#7a6f66';
+        
         const markerIcon = L.divIcon({
             className: 'numbered-marker',
-            html: `<div>${index + 1}</div>`,
-            iconSize: [30, 30],
-            iconAnchor: [15, 30],
-            popupAnchor: [0, -30]
+            html: `<div style="background-color: ${bgColor}; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">${index + 1}</div>`,
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -35]
         });
         L.marker(point.coords, { icon: markerIcon })
             .addTo(map)
-            .bindPopup(`${index + 1}. ${point.name}`);
+            .bindPopup(`<strong>DAY ${point.day}</strong><br>${index + 1}. ${point.name}`, { maxWidth: 250, className: 'route-popup' });
     });
 
     map.fitBounds(polyline.getBounds(), { padding: [20, 20] });
