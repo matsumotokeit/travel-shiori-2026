@@ -576,6 +576,118 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 
+/* === Expense Section === */
+.expense-section {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin: 24px 0;
+  box-shadow: var(--shadow-md);
+}
+
+.expense-section h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--warm-900);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.expense-section h2 svg {
+  width: 20px;
+  height: 20px;
+  color: var(--coral-500);
+  flex-shrink: 0;
+}
+
+.expense-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.expense-item {
+  background: linear-gradient(135deg, var(--warm-50) 0%, var(--navy-50) 100%);
+  border: 1px solid var(--navy-100);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.expense-item:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.expense-label {
+  font-size: 0.8rem;
+  color: var(--warm-600);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.expense-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--coral-500);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.expense-unit {
+  font-size: 0.75rem;
+  color: var(--warm-500);
+  font-weight: 500;
+}
+
+.expense-total {
+  background: linear-gradient(135deg, var(--navy-600) 0%, var(--navy-700) 100%);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--white);
+}
+
+.total-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.total-price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.total-unit {
+  font-size: 0.75rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+  .expense-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .expense-total {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
 /* === Footer === */
 .footer {
   text-align: center;
