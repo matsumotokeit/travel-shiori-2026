@@ -156,7 +156,7 @@ body {
 /* === Main Layout === */
 .container {
   max-width: 640px;
-  margin: 0 auto;
+  margin: 28px auto;
   padding: 0 16px 60px;
 }
 
