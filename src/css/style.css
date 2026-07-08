@@ -165,7 +165,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin: -18px 0 18px;
+  margin: 0 0 18px;
   position: relative;
   z-index: 4;
 }
@@ -842,7 +842,7 @@ body {
 @media (max-width: 600px) {
   .trip-overview {
     grid-template-columns: 1fr;
-    margin-top: -12px;
+    margin-top: 0;
   }
 
   .expense-list {
