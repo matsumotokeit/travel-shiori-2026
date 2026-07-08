@@ -1,4 +1,5 @@
-// タブ切り替え機能
+const routeMaps = {};
+
 function switchTab(dayId) {
     document.querySelectorAll('.tab-content').forEach(content => {
         content.classList.remove('active');
@@ -13,79 +14,129 @@ function switchTab(dayId) {
     if (dayIndex >= 0 && btns[dayIndex]) btns[dayIndex].classList.add('active');
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    setTimeout(() => {
+        const map = routeMaps[dayId];
+        if (map) map.invalidateSize();
+    }, 250);
 }
 
-function initRouteMap() {
-    const mapContainer = document.getElementById('route-map');
-    if (!mapContainer || typeof L === 'undefined') {
-        return;
-    }
+function initRouteMaps() {
+    if (typeof L === 'undefined') return;
 
-    const map = L.map(mapContainer, { scrollWheelZoom: false }).setView([38.6, 141.0], 8);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors',
-        maxZoom: 18,
-    }).addTo(map);
+    const routes = {
+        day1: {
+            color: '#4a6fa5',
+            maxZoom: 12,
+            points: [
+                { name: '仙台駅 集合', coords: [38.2605, 140.8810], time: '11:00' },
+                { name: '仙台牛タン ランチ', coords: [38.2605, 140.8798], time: '12:00' },
+                { name: '瑞鳳殿', coords: [38.2535, 140.8669], time: '14:00' },
+                { name: '仙台七夕まつり', coords: [38.2657, 140.8719], time: '17:00' },
+                { name: '多賀城 Airbnb', coords: [38.2931, 140.9948], time: '21:00' }
+            ]
+        },
+        day2: {
+            color: '#e0694e',
+            maxZoom: 8,
+            points: [
+                { name: '多賀城 出発', coords: [38.2931, 140.9948], time: '09:00' },
+                { name: '気仙沼周辺', coords: [38.9080, 141.5700], time: '11:00' },
+                { name: '三陸海岸ドライブ', coords: [39.0180, 141.6300], time: '13:00' },
+                { name: '西行戻しの松公園', coords: [38.3719, 141.0724], time: '15:00' },
+                { name: '東家本店', coords: [39.7036, 141.1527], time: '17:00' },
+                { name: '花巻温泉', coords: [39.3963, 141.1311], time: '18:30' }
+            ]
+        },
+        day3: {
+            color: '#2f8f83',
+            maxZoom: 8,
+            points: [
+                { name: '花巻温泉 出発', coords: [39.3963, 141.1311], time: '09:00' },
+                { name: '中尊寺・金色堂', coords: [39.0088, 141.1253], time: '09:30' },
+                { name: '平泉ランチ', coords: [38.9867, 141.1139], time: '10:30' },
+                { name: '仙台駅 到着', coords: [38.2605, 140.8810], time: '15:00' }
+            ]
+        }
+    };
 
-    const routePoints = [
-        { name: '仙台駅', coords: [38.2605, 140.8810], day: '1' },
-        { name: '瑞鳳殿', coords: [38.2535, 140.8920], day: '1' },
-        { name: '多賀城Airbnb', coords: [38.3335, 140.9835], day: '1' },
-        { name: '三陸海岸', coords: [38.7411, 141.5682], day: '2' },
-        { name: '西行戻しの松公園', coords: [39.0288, 141.1350], day: '2' },
-        { name: '東家本店', coords: [39.7036, 141.1527], day: '2' },
-        { name: '花巻温泉', coords: [39.3963, 141.1311], day: '2' },
-        { name: '中尊寺', coords: [39.0088, 141.1253], day: '3' },
-        { name: '仙台駅', coords: [38.2605, 140.8810], day: '3' }
-    ];
+    Object.entries(routes).forEach(([dayId, route]) => {
+        const container = document.getElementById(`route-map-${dayId}`);
+        if (!container) return;
 
-    const latlngs = routePoints.map(point => point.coords);
-    const polyline = L.polyline(latlngs, { color: '#e0694e', weight: 4, opacity: 0.7, dashArray: '5, 5' }).addTo(map);
-
-    routePoints.forEach((point, index) => {
-        const dayColors = { '1': '#4a6fa5', '2': '#f08060', '3': '#6ba3d4' };
-        const bgColor = dayColors[point.day] || '#7a6f66';
-        
-        const markerIcon = L.divIcon({
-            className: 'numbered-marker',
-            html: `<div style="background-color: ${bgColor}; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">${index + 1}</div>`,
-            iconSize: [40, 40],
-            iconAnchor: [20, 40],
-            popupAnchor: [0, -35]
+        const map = L.map(container, {
+            scrollWheelZoom: false,
+            zoomControl: false
         });
-        L.marker(point.coords, { icon: markerIcon })
-            .addTo(map)
-            .bindPopup(`<strong>DAY ${point.day}</strong><br>${index + 1}. ${point.name}`, { maxWidth: 250, className: 'route-popup' });
+
+        L.control.zoom({ position: 'bottomright' }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+            maxZoom: 18,
+        }).addTo(map);
+
+        const latlngs = route.points.map(point => point.coords);
+        const polyline = L.polyline(latlngs, {
+            color: route.color,
+            weight: 5,
+            opacity: 0.82,
+            lineCap: 'round',
+            lineJoin: 'round'
+        }).addTo(map);
+
+        route.points.forEach((point, index) => {
+            const markerIcon = L.divIcon({
+                className: 'numbered-marker',
+                html: `<div style="background-color: ${route.color};">${index + 1}</div>`,
+                iconSize: [36, 36],
+                iconAnchor: [18, 36],
+                popupAnchor: [0, -34]
+            });
+
+            L.marker(point.coords, { icon: markerIcon })
+                .addTo(map)
+                .bindPopup(`<strong>${point.time}</strong><br>${point.name}`, {
+                    maxWidth: 240,
+                    className: 'route-popup'
+                });
+        });
+
+        map.fitBounds(polyline.getBounds(), {
+            padding: [34, 34],
+            maxZoom: route.maxZoom
+        });
+        routeMaps[dayId] = map;
     });
 
-    map.fitBounds(polyline.getBounds(), { padding: [20, 20] });
-    setTimeout(() => map.invalidateSize(), 200);
+    setTimeout(() => {
+        Object.values(routeMaps).forEach(map => map.invalidateSize());
+    }, 250);
 }
 
-// 共有機能
 function getShareUrl() {
     return window.location.href;
 }
 
 function getShareText() {
-    return '宮城・岩手 2泊3日 夏旅しおり 2026年8月8日〜10日';
+    return '宮城・岩手 2泊3日 夏旅しおり｜2026年8月8日〜10日';
+}
+
+function showCopyToast() {
+    const toast = document.getElementById('copy-toast');
+    if (!toast) return;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
 }
 
 function copyUrl() {
-    navigator.clipboard.writeText(getShareUrl()).then(() => {
-        const toast = document.getElementById('copy-toast');
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
-    }).catch(() => {
+    navigator.clipboard.writeText(getShareUrl()).then(showCopyToast).catch(() => {
         const input = document.createElement('input');
         input.value = getShareUrl();
         document.body.appendChild(input);
         input.select();
         document.execCommand('copy');
         document.body.removeChild(input);
-        const toast = document.getElementById('copy-toast');
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
+        showCopyToast();
     });
 }
 
@@ -115,6 +166,8 @@ function toggleQR() {
 }
 
 function generateQR() {
+    if (!window.QRCode) return;
+
     const canvas = document.getElementById('qr-canvas');
     const url = getShareUrl();
     const size = 200;
@@ -135,7 +188,6 @@ function generateQR() {
     }
 }
 
-// Minimal QR code encoder (version 4, L correction, byte mode)
 function qrEncode(data) {
     const qr = new QRCode(4, 'L');
     qr.addData(data);
@@ -151,10 +203,12 @@ function qrEncode(data) {
     return modules;
 }
 
-// Load QR code library dynamically
 function loadQRLibrary() {
     return new Promise((resolve, reject) => {
-        if (window.QRCode) { resolve(); return; }
+        if (window.QRCode) {
+            resolve();
+            return;
+        }
         const script = document.createElement('script');
         script.src = 'https://unpkg.com/qrcode-generator@1.4.4/qrcode.min.js';
         script.onload = resolve;
@@ -163,11 +217,6 @@ function loadQRLibrary() {
     });
 }
 
-window.switchTab = switchTab;
-window.copyUrl = copyUrl;
-window.toggleQR = toggleQR;
-
-// Scroll animations
 function initScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -182,12 +231,11 @@ function initScrollAnimations() {
         observer.observe(el);
     });
 
-    document.querySelectorAll('.map-section, .share-section').forEach(el => {
+    document.querySelectorAll('.day-header, .map-section, .expense-section, .share-section').forEach(el => {
         observer.observe(el);
     });
 }
 
-// Sticky tab shadow
 function initStickyTabs() {
     const sticky = document.getElementById('tabs-sticky');
     if (!sticky) return;
@@ -198,11 +246,14 @@ function initStickyTabs() {
     onScroll();
 }
 
+window.switchTab = switchTab;
+window.copyUrl = copyUrl;
+window.toggleQR = toggleQR;
+
 window.addEventListener('load', () => {
-    initRouteMap();
+    initRouteMaps();
     initShareLinks();
-    loadQRLibrary();
+    loadQRLibrary().catch(() => {});
     initScrollAnimations();
     initStickyTabs();
 });
-
